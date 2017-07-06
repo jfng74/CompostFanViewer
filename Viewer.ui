@@ -1,0 +1,2269 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="tk.Frame" id="CompostFanViewer">
+    <property name="height">800</property>
+    <property name="width">800</property>
+    <layout>
+      <property name="column">0</property>
+      <property name="propagate">True</property>
+      <property name="row">0</property>
+    </layout>
+    <child>
+      <object class="ttk.Notebook" id="Notebook">
+        <property name="height">800</property>
+        <property name="width">800</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="padx">10</property>
+          <property name="propagate">True</property>
+          <property name="row">1</property>
+        </layout>
+        <child>
+          <object class="ttk.Notebook.Tab" id="GS_TAB">
+            <property name="text" translatable="yes">Groupes Sondes</property>
+            <child>
+              <object class="tk.Frame" id="GS_FRAME">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                  <rows>
+                    <row id="0">
+                      <property name="pad">0</property>
+                    </row>
+                    <row id="1">
+                      <property name="pad">0</property>
+                    </row>
+                  </rows>
+                </layout>
+                <child>
+                  <object class="tk.Button" id="GS_BUTTON_GS1">
+                    <property name="command">on_button_groupe_sonde_1_clicked</property>
+                    <property name="justify">left</property>
+                    <property name="text" translatable="yes">Groupe Sonde 1 (Compost 1)</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="padx">10</property>
+                      <property name="pady">10</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="GS_BUTTON_GS2">
+                    <property name="command">on_button_groupe_sonde_2_clicked</property>
+                    <property name="text" translatable="yes">Groupe Sonde 2 (Compost 2)</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="padx">10</property>
+                      <property name="pady">10</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="GS_BUTTON_GS3">
+                    <property name="command">on_button_groupe_sonde_3_clicked</property>
+                    <property name="text" translatable="yes">Groupe Sonde 3 (Compost 3)</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="padx">10</property>
+                      <property name="pady">10</property>
+                      <property name="propagate">True</property>
+                      <property name="row">2</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="GS_BUTTON_GS4">
+                    <property name="command">on_button_groupe_sonde_4_clicked</property>
+                    <property name="text" translatable="yes">Groupe Sonde 4 (Compost 4)</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">3</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="RELAIS_CFG_TAB">
+            <property name="text" translatable="yes">Relais (configuration)</property>
+            <child>
+              <object class="tk.Frame" id="RELAIS_CFG_FRAME">
+                <property name="height">200</property>
+                <property name="width">600</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_CFG_SONDE_1">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Configuration de la sonde 1</property>
+                    <property name="width">600</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_1_ID">
+                        <property name="text" translatable="yes">Adresse</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_1_ID">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_1_ID</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ID">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_1_ENDROIT">
+                        <property name="text" translatable="yes">Emplacement</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_1_ENDROIT_TXT">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_1_ENDROIT_TXT</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ENDROIT_TXT">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_1_CHOIX_TEMPERATURE">
+                        <property name="text" translatable="yes">Selection des NTC</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_1_T_SURFACE">
+                        <property name="command">on_chk_button_sonde_1_surface</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_1_surface</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_1_T_PROFONDEUR">
+                        <property name="command">on_chk_button_sonde_1_profondeur</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_1_profondeur</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_CFG_SONDE_2">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Configuration de la sonde 2</property>
+                    <property name="width">200</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_2_ID">
+                        <property name="text" translatable="yes">Adresse</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_2_ID">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_2_ID</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ID">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_2_ENDROIT">
+                        <property name="text" translatable="yes">Emplacement</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_2_ENDROIT_TXT">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_2_ENDROIT_TXT</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ENDROIT_TXT">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_2_CHOIX_TEMPERATURE">
+                        <property name="text" translatable="yes">Selection des NTC</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_2_T_SURFACE">
+                        <property name="command">on_chk_button_sonde_2_surface</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_2_surface</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_2_T_PROFONDEUR">
+                        <property name="command">on_chk_button_sonde_2_profondeur</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_2_profondeur</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_CFG_SONDE_3">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Configuration de la sonde 3</property>
+                    <property name="width">200</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">2</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_3_ID">
+                        <property name="text" translatable="yes">Adresse</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_3_ID">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_3_ID</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ID">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_3_ENDROIT">
+                        <property name="text" translatable="yes">Emplacement</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_3_ENDROIT_TXT">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_3_ENDROIT_TXT</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ENDROIT_TXT">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_3_CHOIX_TEMPERATURE">
+                        <property name="text" translatable="yes">Selection des NTC</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_3_T_SURFACE">
+                        <property name="command">on_chk_button_sonde_3_surface</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_3_surface</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_3_T_PROFONDEUR">
+                        <property name="command">on_chk_button_sonde_3_profondeur</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_3_profondeur</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_CFG_SONDE_4">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Configuration de la sonde 4</property>
+                    <property name="width">200</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">3</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_4_ID">
+                        <property name="text" translatable="yes">Adresse</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_4_ID">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_4_ID</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ID">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_4_ENDROIT">
+                        <property name="text" translatable="yes">Emplacement</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_SONDE_4_ENDROIT_TXT">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_SONDE_4_ENDROIT_TXT</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ENDROIT_TXT">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_4_CHOIX_TEMPERATURE">
+                        <property name="text" translatable="yes">Selection des NTC</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_4_T_SURFACE">
+                        <property name="command">on_chk_button_sonde_4_surface</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_4_surface</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Checkbutton" id="RELAIS_CFG_CHK_BUTTON_SONDE_4_T_PROFONDEUR">
+                        <property name="command">on_chk_button_sonde_4_profondeur</property>
+                        <property name="offvalue">no</property>
+                        <property name="onvalue">yes</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <property name="variable">string:relais_cfg_chk_sonde_4_profondeur</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_DELAIS_MIN">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Delais de lecture des temperatures en minutes</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">4</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_DELAIS_MIN">
+                        <property name="text" translatable="yes">Delais minutes</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_DELAIS_MIN">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_DELAIS_MIN</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_DELAIS_MIN">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_PC">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Points de consigne</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">5</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_PC1">
+                        <property name="compound">top</property>
+                        <property name="text" translatable="yes">PC 1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_PC2">
+                        <property name="text" translatable="yes">PC 2</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_PC3">
+                        <property name="text" translatable="yes">PC 3</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_PC4">
+                        <property name="text" translatable="yes">PC 4</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_PC1">
+                        <property name="insertontime">200</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_PC1</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_PC2">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_PC2</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_PC3">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_PC3</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_PC4">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_PC4</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC1">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC2">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC3">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC4">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_TV">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Temps de ventilation ON</property>
+                    <property name="width">200</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">6</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TV1">
+                        <property name="compound">top</property>
+                        <property name="text" translatable="yes">TV 1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TV2">
+                        <property name="text" translatable="yes">TV 2</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TV3">
+                        <property name="text" translatable="yes">TV 3</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TV4">
+                        <property name="text" translatable="yes">TV 4</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TV1">
+                        <property name="insertontime">200</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TV1</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TV2">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TV2</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TV3">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TV3</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TV4">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TV4</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV1">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV2">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV3">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV4">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_CFG_LABEL_FRAME_TA">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Temps de ventilation OFF</property>
+                    <property name="width">200</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="columnspan">1</property>
+                      <property name="ipadx">0</property>
+                      <property name="ipady">2</property>
+                      <property name="propagate">True</property>
+                      <property name="row">7</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TA1">
+                        <property name="font">TkDefaultFont</property>
+                        <property name="text" translatable="yes">TA 1</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TA2">
+                        <property name="text" translatable="yes">TA 2</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TA3">
+                        <property name="text" translatable="yes">TA 3</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_CFG_LABEL_TA4">
+                        <property name="text" translatable="yes">TA 4</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TA1">
+                        <property name="insertontime">200</property>
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TA1</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TA2">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TA2</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TA3">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TA3</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_CUR_TA4">
+                        <property name="state">normal</property>
+                        <property name="text" translatable="yes">CUR_TA4</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA1">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA2">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA3">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA4">
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="RELAIS_CFG_BUTTON_UPDATE">
+                    <property name="command">on_button_relais_update_cfg_clicked</property>
+                    <property name="text" translatable="yes">Mettre a jour les valeurs de configuration du relais</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">8</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="RELAIS_DATA_TAB">
+            <property name="text" translatable="yes">Relais (data)</property>
+            <child>
+              <object class="ttk.Frame" id="RELAIS_DATA_FRAME">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_DATA_LABEL_FRAME_DATE_HEURE_LECTURE_DATA">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Date Heure de la derniere lecture des donnees de la sonde</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_DATA_LABEL_DATE_HEURE">
+                        <property name="text" translatable="yes">Date Heure</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_DATA_ENTRY_CUR_DATE_HEURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_DATE_HEURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="RELAIS_DATA_LABEL_FRAME_DONNEES">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Donnees recu</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_DATA_LABEL_T_AVG">
+                        <property name="text" translatable="yes">T. AVG</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_DATA_ENTRY_CUR_T_AVG">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_AVG</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_DATA_LABEL_PC">
+                        <property name="text" translatable="yes">PC</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_DATA_ENTRY_CUR_PC">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_PC</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_DATA_LABEL_TV">
+                        <property name="text" translatable="yes">TV</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_DATA_ENTRY_CUR_TV">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_TV</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_DATA_LABEL_TA">
+                        <property name="text" translatable="yes">TA</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_DATA_ENTRY_CUR_TA">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_TA</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="RELAIS_DATA_LABEL_SSR_STATE">
+                        <property name="text" translatable="yes">SSR ETAT</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="RELAIS_DATA_ENTRY_CUR_SSR_STATE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_SSR_STATE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="SONDE_1_TAB">
+            <property name="text" translatable="yes">Sonde 1</property>
+            <child>
+              <object class="tk.Frame" id="SONDE_1_FRAME">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_1_LABEL_FRAME_DATE_HEURE_LECTURE_DATA">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Date Heure de la derniere lecture des donnees de la sonde</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_DATE_HEURE">
+                        <property name="text" translatable="yes">Date Heure</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_DATE_HEURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_DATE_HEURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_1_LABEL_FRAME_DONNEES">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Donnees recu</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_T_SURFACE">
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_T_SURFACE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_SURFACE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_T_PROFONDEUR">
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_T_PROFONDEUR">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_PROFONDEUR</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_CONDUCTIVITE">
+                        <property name="text" translatable="yes">Conductivite</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_CONDUCTIVITE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_CONDUCTIVITE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_BME_TEMPERATURE">
+                        <property name="text" translatable="yes">BME T.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_BME_TEMPERATURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_TEMPERATURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_BME_HUMIDITY">
+                        <property name="text" translatable="yes">BME H.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_BME_HUMIDITY">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_HUMIDITY</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_BME_PRESSION">
+                        <property name="text" translatable="yes">BME P.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_BME_PRESSION">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_PRESSION</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_BATTERIE_VOLTAGE">
+                        <property name="text" translatable="yes">Batterie Voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_BATTERIE_VOLTAGE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_TX_POWER">
+                        <property name="text" translatable="yes">TX Power</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_TX_POWER">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_TX_POWER</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_1_LABEL_LAST_RSSI">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_1_ENTRY_CUR_LAST_RSSI">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_LAST_RSSI</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="SONDE_2_TAB">
+            <property name="text" translatable="yes">Sonde 2</property>
+            <child>
+              <object class="tk.Frame" id="SONDE_2_FRAME">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_2_LABEL_FRAME_DATE_HEURE_LECTURE_DATA">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Date Heure de la derniere lecture des donnees de la sonde</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_DATE_HEURE">
+                        <property name="text" translatable="yes">Date Heure</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_DATE_HEURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_DATE_HEURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_2_LABEL_FRAME_DONNEES">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Donnees recu</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_T_SURFACE">
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_T_SURFACE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_SURFACE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_T_PROFONDEUR">
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_T_PROFONDEUR">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_PROFONDEUR</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_CONDUCTIVITE">
+                        <property name="text" translatable="yes">Conductivite</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_CONDUCTIVITE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_CONDUCTIVITE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_BME_TEMPERATURE">
+                        <property name="text" translatable="yes">BME T.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_BME_TEMPERATURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_TEMPERATURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_BME_HUMIDITY">
+                        <property name="text" translatable="yes">BME H.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_BME_HUMIDITY">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_HUMIDITY</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_BME_PRESSION">
+                        <property name="text" translatable="yes">BME P.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_BME_PRESSION">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_PRESSION</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_BATTERIE_VOLTAGE">
+                        <property name="text" translatable="yes">Batterie Voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_BATTERIE_VOLTAGE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_BATTERIE_VOLTAGE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_TX_POWER">
+                        <property name="text" translatable="yes">TX Power</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_TX_POWER">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_TX_POWER</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_2_LABEL_LAST_RSSI">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_2_ENTRY_CUR_LAST_RSSI">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_LAST_RSSI</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="SONDE_3_TAB">
+            <property name="text" translatable="yes">Sonde 3</property>
+            <child>
+              <object class="tk.Frame" id="SONDE_3_FRAME">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_3_LABEL_FRAME_DATE_HEURE_LECTURE_DATA">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Date Heure de la derniere lecture des donnees de la sonde</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_DATE_HEURE">
+                        <property name="text" translatable="yes">Date Heure</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_DATE_HEURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_DATE_HEURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_3_LABEL_FRAME_DONNEES">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Donnees recu</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_T_SURFACE">
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_T_SURFACE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_SURFACE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_T_PROFONDEUR">
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_T_PROFONDEUR">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_PROFONDEUR</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_CONDUCTIVITE">
+                        <property name="text" translatable="yes">Conductivite</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_CONDUCTIVITE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_CONDUCTIVITE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_BME_TEMPERATURE">
+                        <property name="text" translatable="yes">BME T.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_BME_TEMPERATURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_TEMPERATURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_BME_HUMIDITY">
+                        <property name="text" translatable="yes">BME H.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_BME_HUMIDITY">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_HUMIDITY</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_BME_PRESSION">
+                        <property name="text" translatable="yes">BME P.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_BME_PRESSION">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_PRESSION</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_BATTERIE_VOLTAGE">
+                        <property name="text" translatable="yes">Batterie Voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_BATTERIE_VOLTAGE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_BATTERIE_VOLTAGE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_TX_POWER">
+                        <property name="text" translatable="yes">TX Power</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_TX_POWER">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_TX_POWER</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_3_LABEL_LAST_RSSI">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_3_ENTRY_CUR_LAST_RSSI">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_LAST_RSSI</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Notebook.Tab" id="SONDE_4_TAB">
+            <property name="text" translatable="yes">Sonde 4</property>
+            <child>
+              <object class="tk.Frame" id="SONDE_4_FRAME">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_4_LABEL_FRAME_DATE_HEURE_LECTURE_DATA">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Date Heure de la derniere lecture des donnees de la sonde</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_DATE_HEURE">
+                        <property name="text" translatable="yes">Date Heure</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_DATE_HEURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_DATE_HEURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.LabelFrame" id="SONDE_4_LABEL_FRAME_DONNEES">
+                    <property name="height">200</property>
+                    <property name="text" translatable="yes">Donnees recu</property>
+                    <property name="width">400</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_T_SURFACE">
+                        <property name="text" translatable="yes">T. Surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_T_SURFACE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_SURFACE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_T_PROFONDEUR">
+                        <property name="text" translatable="yes">T. Profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_T_PROFONDEUR">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_T_PROFONDEUR</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_CONDUCTIVITE">
+                        <property name="text" translatable="yes">Conductivite</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_CONDUCTIVITE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_CONDUCTIVITE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_BME_TEMPERATURE">
+                        <property name="text" translatable="yes">BME T.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_BME_TEMPERATURE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_TEMPERATURE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_BME_HUMIDITY">
+                        <property name="text" translatable="yes">BME H.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_BME_HUMIDITY">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_HUMIDITY</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_BME_PRESSION">
+                        <property name="text" translatable="yes">BME P.</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_BME_PRESSION">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_PRESSION</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_BATTERIE_VOLTAGE">
+                        <property name="text" translatable="yes">Batterie Voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_BATTERIE_VOLTAGE">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_BME_BATTERIE_VOLTAGE</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_TX_POWER">
+                        <property name="text" translatable="yes">TX Power</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_TX_POWER">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_TX_POWER</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">7</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="SONDE_4_LABEL_LAST_RSSI">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="SONDE_4_ENTRY_CUR_LAST_RSSI">
+                        <property name="state">readonly</property>
+                        <property name="text" translatable="yes">CUR_LAST_RSSI</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">8</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.LabelFrame" id="ConnectionLabelFrame">
+        <property name="height">200</property>
+        <property name="text" translatable="yes">Serveur de noeuds</property>
+        <property name="width">600</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="padx">10</property>
+          <property name="pady">10</property>
+          <property name="propagate">True</property>
+          <property name="row">0</property>
+          <property name="sticky">w</property>
+        </layout>
+        <child>
+          <object class="tk.Frame" id="Frame_1">
+            <property name="height">200</property>
+            <property name="width">600</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+            <child>
+              <object class="tk.Button" id="TCP_CON_BUTTON_CONNECT">
+                <property name="command">on_button_server_connect_clicked</property>
+                <property name="text" translatable="yes">Connect</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="padx">10</property>
+                  <property name="pady">10</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="TCP_CON_BUTTON_DISCONNECT">
+                <property name="command">on_button_server_disconnect_clicked</property>
+                <property name="state">disabled</property>
+                <property name="text" translatable="yes">Disconnect</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="padx">10</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Entry" id="TCP_CON_ENTRY_CON_INFORMATION">
+                <property name="text" translatable="yes">TCP_CON_ENTRY_CON_INFORMATION</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="ipadx">100</property>
+                  <property name="ipady">5</property>
+                  <property name="padx">10</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

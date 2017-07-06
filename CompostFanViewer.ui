@@ -1,0 +1,962 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="tk.Frame" id="CompostFanWidget">
+    <property name="height">400</property>
+    <property name="width">400</property>
+    <layout>
+      <property name="column">0</property>
+      <property name="propagate">True</property>
+      <property name="row">0</property>
+    </layout>
+    <child>
+      <object class="tk.LabelFrame" id="lbf_connection_server">
+        <property name="height">100</property>
+        <property name="text" translatable="yes">Serveur de noeuds</property>
+        <property name="width">400</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="columnspan">2</property>
+          <property name="propagate">True</property>
+          <property name="row">1</property>
+          <property name="rowspan">1</property>
+          <property name="sticky">nw</property>
+        </layout>
+        <child>
+          <object class="tk.Button" id="bt_server_connect">
+            <property name="command">on_button_server_connect_clicked</property>
+            <property name="text" translatable="yes">Connect</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Button" id="bt_server_disconnect">
+            <property name="command">on_button_server_disconnect_clicked</property>
+            <property name="state">disabled</property>
+            <property name="text" translatable="yes">Disconnect</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Entry" id="en_connection_information">
+            <property name="text" translatable="yes">Not connected</property>
+            <property name="width">48</property>
+            <layout>
+              <property name="column">3</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.LabelFrame" id="lbf_noeuds">
+        <property name="height">200</property>
+        <property name="text" translatable="yes">Noeuds</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+        </layout>
+        <child>
+          <object class="ttk.Notebook" id="notebook_node">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">6</property>
+            </layout>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tab_relais">
+                <property name="state">normal</property>
+                <property name="text" translatable="yes">Relais</property>
+                <child>
+                  <object class="tk.Frame" id="f_donnes_relais">
+                    <property name="height">200</property>
+                    <property name="width">536</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">0</property>
+                      <property name="sticky">nw</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="l_t_moyenne">
+                        <property name="text" translatable="yes">T moyenne</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_t_moyenne">
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_relais_t_consigne">
+                        <property name="text" translatable="yes">T consigne</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_relais_t_consigne">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Button" id="bt_relais_update">
+                        <property name="command">on_button_relais_update_clicked</property>
+                        <property name="text" translatable="yes">Update Consigne</property>
+                        <property name="underline">0</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_relais_t_offset_min">
+                        <property name="text" translatable="yes">T offset Min</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_relais_t_offset_min">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                          <property name="sticky">e</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_relais_t_offset_max">
+                        <property name="text" translatable="yes">T offset Max</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_relais_t_offset_max">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                          <property name="sticky">ne</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_relais_current_state">
+                        <property name="text" translatable="yes">Etat du relais</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                          <property name="sticky">w</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_relais_current_state">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Frame" id="f_relais_boutons">
+                        <property name="height">200</property>
+                        <property name="width">200</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                        <child>
+                          <object class="tk.Button" id="bt_relais_on">
+                            <property name="command">on_button_relais_on_clicked</property>
+                            <property name="text" translatable="yes">On</property>
+                            <bind add="True" handler="callback" sequence="&lt;1&gt;" />
+                            <layout>
+                              <property name="column">2</property>
+                              <property name="propagate">True</property>
+                              <property name="row">3</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="tk.Button" id="bt_relais_off">
+                            <property name="command">on_button_relais_off_clicked</property>
+                            <property name="text" translatable="yes">Off</property>
+                            <layout>
+                              <property name="column">3</property>
+                              <property name="propagate">True</property>
+                              <property name="row">3</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="tk.Button" id="bt_relais_auto">
+                            <property name="command">on_button_relais_auto_clicked</property>
+                            <property name="text" translatable="yes">Auto</property>
+                            <layout>
+                              <property name="column">4</property>
+                              <property name="propagate">True</property>
+                              <property name="row">3</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_delais">
+                        <property name="text" translatable="yes">Delais</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_delay_between_read">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Button" id="bt_relais_update_delais">
+                        <property name="command">on_button_relais_update_delais_clicked</property>
+                        <property name="text" translatable="yes">Update Delais</property>
+                        <layout>
+                          <property name="column">2</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_update_consigne">
+                        <layout>
+                          <property name="column">3</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_update_delais">
+                        <layout>
+                          <property name="column">3</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Text" id="Text_1">
+                        <property name="height">10</property>
+                        <property name="text" translatable="yes">Text_1</property>
+                        <property name="width">50</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">6</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tab_gateway">
+                <property name="state">normal</property>
+                <property name="text" translatable="yes">Gateway</property>
+                <child>
+                  <object class="tk.Frame" id="f_donnes_gateway">
+                    <property name="height">200</property>
+                    <property name="width">536</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">1</property>
+                      <property name="sticky">nw</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tab_sonde_compost_1">
+                <property name="text" translatable="yes">Sonde compost 1</property>
+                <child>
+                  <object class="tk.Frame" id="f_donnees_sonde_compost_1">
+                    <property name="height">200</property>
+                    <property name="width">536</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">2</property>
+                      <property name="sticky">nw</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="l_node_1_t_surface">
+                        <property name="text" translatable="yes">T surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_1_t_profondeur">
+                        <property name="text" translatable="yes">T profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_1_t_air">
+                        <property name="text" translatable="yes">T air</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_1_h_air">
+                        <property name="text" translatable="yes">H air</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_1_batt_voltage">
+                        <property name="text" translatable="yes">Batterie voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_1_t_surface">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_1_t_profondeur">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_1_t_air">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_1_h_air">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">3</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_1_batt_voltage">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_1_last_rssi">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_1_last_rssi">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tab_sonde_compost_2">
+                <property name="text" translatable="yes">Sonde compost 2</property>
+                <child>
+                  <object class="tk.Frame" id="f_donnees_sonde_compost_2">
+                    <property name="height">200</property>
+                    <property name="padx">5</property>
+                    <property name="pady">5</property>
+                    <property name="width">536</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">3</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="l_node_2_t_surface">
+                        <property name="text" translatable="yes">T surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_2_t_profondeur">
+                        <property name="text" translatable="yes">T profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_2_batt_voltage">
+                        <property name="text" translatable="yes">Batterie voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_2_t_surface">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_2_t_profondeur">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_2_batt_voltage">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_2_last_rssi">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_2_last_rssi">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tab_sonde_compost_3">
+                <property name="text" translatable="yes">Sonde compost 3</property>
+                <child>
+                  <object class="tk.Frame" id="f_donnees_sonde_compost_3">
+                    <property name="height">200</property>
+                    <property name="width">536</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">4</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="l_node_3_t_surface">
+                        <property name="text" translatable="yes">T surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_3_t_profondeur">
+                        <property name="text" translatable="yes">T profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_3_batt_voltage">
+                        <property name="text" translatable="yes">Batterie voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_3_t_surface">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_3_t_profondeur">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_3_batt_voltage">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_3_last_rssi">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_3_last_rssi">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tab_sonde_compost_4">
+                <property name="text" translatable="yes">Sonde compost 4</property>
+                <child>
+                  <object class="tk.Frame" id="f_donnees_sonde_compost_4">
+                    <property name="height">200</property>
+                    <property name="width">536</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="propagate">True</property>
+                      <property name="row">5</property>
+                      <property name="sticky">w</property>
+                    </layout>
+                    <child>
+                      <object class="tk.Label" id="l_node_4_t_surface">
+                        <property name="text" translatable="yes">T surface</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_4_t_profondeur">
+                        <property name="text" translatable="yes">T profondeur</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_4_batt_voltage">
+                        <property name="text" translatable="yes">Batterie voltage</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_4_t_surface">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">0</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_4_t_profondeur">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">1</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_4_batt_voltage">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">4</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Label" id="l_node_4_last_rssi">
+                        <property name="text" translatable="yes">Last RSSI</property>
+                        <layout>
+                          <property name="column">0</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="tk.Entry" id="en_node_4_last_rssi">
+                        <property name="justify">center</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="propagate">True</property>
+                          <property name="row">5</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.LabelFrame" id="lbf_rrd_graph">
+        <property name="height">100</property>
+        <property name="text" translatable="yes">RRD Graph</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="columnspan">2</property>
+          <property name="propagate">True</property>
+          <property name="row">3</property>
+        </layout>
+        <child>
+          <object class="tk.Frame" id="f_rrd_graph">
+            <property name="height">480</property>
+            <property name="width">640</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="ipadx">0</property>
+              <property name="ipady">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+            <child>
+              <object class="tk.Label" id="l_rrd_graph">
+                <property name="image">node_1.png</property>
+                <property name="text" translatable="yes">RRD Graph</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Frame" id="f_rrd_graph_config">
+            <property name="height">200</property>
+            <property name="relief">flat</property>
+            <property name="width">200</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+              <property name="sticky">n</property>
+            </layout>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_cfg_1">
+                <property name="text" translatable="yes">Cfg 1</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_cfg_2">
+                <property name="text" translatable="yes">Cfg 2</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_cfg_3">
+                <property name="text" translatable="yes">Cfg 3</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_cfg_4">
+                <property name="text" translatable="yes">Cfg 4</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_cfg_5">
+                <property name="text" translatable="yes">Cfg 5</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_cfg_6">
+                <property name="text" translatable="yes">Cfg 6</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Frame" id="f_rrd_graph_periode">
+            <property name="height">50</property>
+            <property name="width">200</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+              <property name="sticky">s</property>
+            </layout>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_3m">
+                <property name="command">on_button_periode_3m_clicked</property>
+                <property name="text" translatable="yes">3 mois</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_2m">
+                <property name="command">on_button_periode_2m_clicked</property>
+                <property name="text" translatable="yes">2 mois</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_1m">
+                <property name="command">on_button_periode_1m_clicked</property>
+                <property name="text" translatable="yes">1 mois</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_1w">
+                <property name="command">on_button_periode_1w_clicked</property>
+                <property name="text" translatable="yes">1 semaine</property>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_24h">
+                <property name="command">on_button_periode_24h_clicked</property>
+                <property name="text" translatable="yes">24 heures</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="tk.Button" id="bt_rrd_graph_6h">
+                <property name="command">on_button_periode_6h_clicked</property>
+                <property name="text" translatable="yes">6 heures</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="propagate">True</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

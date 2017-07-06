@@ -1,0 +1,249 @@
+'''
+Created on 2015-06-11
+
+@author: caribou
+'''
+
+import threading
+import Queue
+import time
+from Tkinter import *
+from socket import *
+import pickle
+from compost_data import *
+import pygubu
+
+
+port = 50008
+# host = '192.168.2.30'
+host = 'localhost'
+host_local = 'localhost'
+
+
+class Application:
+    def __init__(self, master):
+        self.master = master
+
+        # create builder
+        self.builder = builder = pygubu.Builder()
+
+        # load ui file
+        builder.add_from_file('CompostFanViewer.ui')
+
+        # create a widget, using master as parent
+        self.mainwindow = builder.get_object('CompostFanWidget', master)
+
+        # connect method callbacks
+        builder.connect_callbacks(self)
+
+        # getting tab_relais widget
+        self.bt_relais = builder.get_object('bt_relais_update')
+        self.en_relais_t_consigne = builder.get_object('en_relais_t_consigne')
+        self.en_relais_t_offset_min = builder.get_object('en_relais_t_offset_min')
+        self.en_relais_t_offset_max = builder.get_object('en_relais_t_offset_max')
+        self.en_relais_current_state = builder.get_object('en_relais_current_state')
+
+        # getting tab_gateway widget
+
+        # getting tab_sonde_compost_1 widget
+        self.en_node_1_t_surface = builder.get_object('en_node_1_t_surface')
+        self.en_node_1_t_profondeur = builder.get_object('en_node_1_t_profondeur')
+        self.en_node_1_t_air = builder.get_object('en_node_1_t_air')
+        self.en_node_1_h_air = builder.get_object('en_node_1_h_air')
+        self.en_node_1_batt_voltage = builder.get_object('en_node_1_batt_voltage')
+
+        # getting tab_sonde_compost_2 widget
+        self.en_node_2_t_surface = builder.get_object('en_node_2_t_surface')
+        self.en_node_2_t_profondeur = builder.get_object('en_node_2_t_profondeur')
+        self.en_node_2_batt_voltage = builder.get_object('en_node_2_batt_voltage')
+
+        # getting tab_sonde_compost_3 widget
+        self.en_node_3_t_surface = builder.get_object('en_node_3_t_surface')
+        self.en_node_3_t_profondeur = builder.get_object('en_node_3_t_profondeur')
+        self.en_node_3_batt_voltage = builder.get_object('en_node_3_batt_voltage')
+
+        # getting tab_sonde_compost_4 widget
+        self.en_node_4_t_surface = builder.get_object('en_node_4_t_surface')
+        self.en_node_4_t_profondeur = builder.get_object('en_node_4_t_profondeur')
+        self.en_node_4_batt_voltage = builder.get_object('en_node_4_batt_voltage')
+
+
+
+        self.notebook_node = builder.get_object('notebook_node')
+        self.notebook_node.bind('<<NotebookTabChanged>>', self.notebook_node_tab_change)
+
+        self.bt_relais_update = builder.get_object('bt_relais_update')
+        self.bt_
+
+        self.c_data = CompostFanData()
+        self.cfg_data = CompostFanConfig()
+        self.dataQueue = Queue.Queue()
+        self.state = 1
+        self.after_id = None
+        self.sock = socket(AF_INET, SOCK_STREAM)
+
+    # define the method callback
+    def on_button_server_connect_clicked(self):
+        print('button_server_connect_clicked')
+        self.client_connect()
+        self.consumer()
+        self.get_fan_compost_data()
+
+    def get_fan_compost_data(self):
+        print('get_fan_compost_data')
+        self.sock.send('GET')
+        self.makethread()
+        self.consumer()
+
+    def on_button_server_disconnect_clicked(self):
+        print('button_server_disconnect_clicked')
+
+    def on_button_relais_update_clicked(self):
+        print ('button_relais_update_clicked')
+        if self.after_id is not None:
+            self.mainwindow.after_cancel(self.after_id)
+            print('after_cancel')
+        self.state = 4
+        socket_data = self.sock.recv(1024)
+        if not socket_data:
+            print('no data')
+        else:
+            print(socket_data)
+        self.sock.send('PUT')
+        self.makethread()
+
+    def notebook_node_tab_change(self, event=None):
+        print ('notebook_tab_changed')
+
+    def update_form(self):
+        self.en_relais_t_consigne.delete(0, END)
+        self.en_relais_t_consigne.insert(0, str(self.cfg_data.relais_consigne_temperature_fan) + ' deg C')
+
+        self.en_node_1_t_surface.delete(0, END)
+        self.en_node_1_t_surface.insert(0, str(self.c_data.node_1_temperature_surface) + ' deg C')
+        self.en_node_1_t_profondeur.delete(0, END)
+        self.en_node_1_t_profondeur.insert(0, str(self.c_data.node_1_temperature_profondeur) + ' deg C')
+        self.en_node_1_t_air.delete(0, END)
+        self.en_node_1_t_air.insert(0, str(self.c_data.node_1_temperature_ambiant) + ' deg C')
+        self.en_node_1_h_air.delete(0, END)
+        self.en_node_1_h_air.insert(0, str(self.c_data.node_1_humidity_ambiant) + ' deg C')
+        self.en_node_1_batt_voltage.delete(0, END)
+        self.en_node_1_batt_voltage.insert(0, str(self.c_data.node_1_battery_voltage) + ' deg C')
+
+        self.en_node_2_t_surface.delete(0, END)
+        self.en_node_2_t_surface.insert(0, str(self.c_data.node_2_temperature_surface) + ' deg C')
+        self.en_node_2_t_profondeur.delete(0, END)
+        self.en_node_2_t_profondeur.insert(0, str(self.c_data.node_2_temperature_profondeur) + ' deg C')
+        self.en_node_2_batt_voltage.delete(0, END)
+        self.en_node_2_batt_voltage.insert(0, str(self.c_data.node_2_battery_voltage) + ' deg C')
+
+
+        print('Consigne : ' + str(self.cfg_data.relais_consigne_temperature_fan) + " deg C")
+        print('Node 1 temperature de surface: ' + str(self.c_data.node_1_temperature_surface) + ' deg C')
+        print('Node 1 temperature de profondeur: ' + str(self.c_data.node_1_temperature_profondeur) + ' deg C')
+        print('Node 2 temperature de surface: ' + str(self.c_data.node_2_temperature_surface) + ' deg C')
+        print('Node 2 temperature de profondeur: ' + str(self.c_data.node_2_temperature_profondeur) + ' deg C')
+
+    def client_connect(self):
+        try:
+            self.sock.connect((host, port))
+        except Exception, errorcode:
+            print "Caught exception socket.error: %s" % errorcode 
+        else:
+            print('Sending Ready...')
+            self.sock.send('Ready')
+            self.makethread()
+            print('Finished client connect')        
+
+    def client_close(self):
+        self.sock.close()
+
+    def producer(self):
+        print ('Producer current state = %d' % self.state)
+        if self.state == 1:
+            print('Producer state == 1')
+            reply = self.sock.recv(1024)
+            self.dataQueue.put('client got: [%s]' % reply)
+            self.state = 2
+        elif self.state == 3:
+            print('Producer state == 3')
+            reply = self.sock.recv(1024)
+            self.dataQueue.put(reply)
+        elif self.state == 4:
+            print('Producer state == 4')
+            reply = self.sock.recv(1024)
+            print('Client receive : ' + reply)
+            reply_string = pickle.dumps(self.cfg_data)
+            self.sock.send(reply_string)
+
+    def consumer(self):
+        print('Consumer')
+        try:
+            data = self.dataQueue.get(block=False)
+        except Queue.Empty:
+            print('Queue empty...')
+            pass
+        else:
+            if self.state == 2:
+                print('Consumer state == 2')
+                print('Client got: [%s]' % data)
+                self.state = 3   
+            elif self.state == 3:
+                self.c_data = pickle.loads(data)
+                self.update_form()
+                self.after_id = self.mainwindow.after(5000, self.get_fan_compost_data)
+            elif self.state == 4:
+                self.state = 3
+                self.after_id = self.mainwindow.after(5000, self.consumer)
+
+
+    def makethread(self):
+        threading.Thread(target=self.producer())
+
+if __name__ == '__main__':
+    root = Tk()
+    app = Application(root)
+    root.mainloop()
+ 
+'''    
+        
+        self.dataQueue = Queue.Queue()
+        self.bind('<Button-1>',self.makethreads)
+        self.consumer()
+    
+
+
+
+
+
+def server():
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.bind(('', port))
+    sock.listen(5)
+    while True:
+        conn, addr = sock.accept()
+        data = conn.recv(1024)
+        reply = 'server got:[%s]' % data
+        conn.send(reply.encode())
+        
+def client(name):
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.connect((host,port))
+    sock.send(name.encode())
+    reply = sock.recv(1024)
+    sock.close()
+    print('client got: [%s]' % reply)
+    
+if __name__ == '__main__':
+    from threading import Thread
+    sthread = Thread(target=server)
+    sthread.daemon = True
+    sthread.start()
+    for i in range(5):
+        Thread(target=client, args=('client%s' %i,)).start()
+        
+    
+    
+    
+    print 'Hello World'
+    '''
