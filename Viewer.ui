@@ -138,15 +138,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ID">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
                       <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_1_ENDROIT">
                         <property name="text" translatable="yes">Emplacement</property>
                         <layout>
@@ -162,15 +153,6 @@
                         <property name="text" translatable="yes">CUR_SONDE_1_ENDROIT_TXT</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ENDROIT_TXT">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">1</property>
                         </layout>
@@ -252,15 +234,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ID">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
                       <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_2_ENDROIT">
                         <property name="text" translatable="yes">Emplacement</property>
                         <layout>
@@ -276,15 +249,6 @@
                         <property name="text" translatable="yes">CUR_SONDE_2_ENDROIT_TXT</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ENDROIT_TXT">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">1</property>
                         </layout>
@@ -366,15 +330,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ID">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
                       <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_3_ENDROIT">
                         <property name="text" translatable="yes">Emplacement</property>
                         <layout>
@@ -390,15 +345,6 @@
                         <property name="text" translatable="yes">CUR_SONDE_3_ENDROIT_TXT</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ENDROIT_TXT">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">1</property>
                         </layout>
@@ -480,15 +426,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ID">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
                       <object class="tk.Label" id="RELAIS_CFG_LABEL_SONDE_4_ENDROIT">
                         <property name="text" translatable="yes">Emplacement</property>
                         <layout>
@@ -504,15 +441,6 @@
                         <property name="text" translatable="yes">CUR_SONDE_4_ENDROIT_TXT</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ENDROIT_TXT">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">1</property>
                         </layout>
@@ -588,15 +516,6 @@
                         <property name="text" translatable="yes">CUR_DELAIS_MIN</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_DELAIS_MIN">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">0</property>
                         </layout>
@@ -701,42 +620,6 @@
                         </layout>
                       </object>
                     </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC1">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC2">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC3">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_PC4">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">3</property>
-                        </layout>
-                      </object>
-                    </child>
                   </object>
                 </child>
                 <child>
@@ -831,42 +714,6 @@
                         <property name="text" translatable="yes">CUR_TV4</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">3</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV1">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV2">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV3">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TV4">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">3</property>
                         </layout>
@@ -969,42 +816,6 @@
                         <property name="text" translatable="yes">CUR_TA4</property>
                         <layout>
                           <property name="column">1</property>
-                          <property name="propagate">True</property>
-                          <property name="row">3</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA1">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA2">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA3">
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="propagate">True</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="tk.Entry" id="RELAIS_CFG_ENTRY_UPDATE_TA4">
-                        <layout>
-                          <property name="column">2</property>
                           <property name="propagate">True</property>
                           <property name="row">3</property>
                         </layout>

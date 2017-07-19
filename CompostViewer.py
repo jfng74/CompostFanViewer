@@ -7,7 +7,7 @@ Created on 2015-06-11
 
 import threading
 import Queue
-import time
+from datetime import datetime, date, time
 from Tkinter import *
 from socket import *
 import pickle
@@ -43,6 +43,12 @@ TCP_GET_RRDGRAPH = 14
 TCP_GET_GROUPE_SONDE = 15
 TCP_GET_GROUPE_SONDE_CFG = 16
 TCP_PUT_RELAIS_CFG = 17
+TCP_GET_DATA_SONDE_1 = 18
+TCP_GET_DATA_SONDE_2 = 19
+TCP_GET_DATA_SONDE_3 = 20
+TCP_GET_DATA_SONDE_4 = 21
+TCP_GET_DATA_RELAY = 22
+TCP_GET_RELAIS_DATA = 23
 
 # RRDGRAPH
 RRD_GRAPH_RELAIS = 1
@@ -64,7 +70,7 @@ class Application:
         self.rrd_graph.graph_start = "end-6h"
         self.rrd_graph.graph_end = "now"
 
-        self.cur_groupe_sonde = 0
+        self.cur_groupe_sonde = -1
 
 
         # create builder
@@ -135,11 +141,6 @@ class Application:
         self.RELAIS_CFG_ENTRY_CUR_SONDE_3_ID = builder.get_object('RELAIS_CFG_ENTRY_CUR_SONDE_3_ID')
         self.RELAIS_CFG_ENTRY_CUR_SONDE_4_ID = builder.get_object('RELAIS_CFG_ENTRY_CUR_SONDE_4_ID')
 
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ID = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ID')
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ID = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ID')
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ID = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ID')
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ID = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ID')
-
         self.RELAIS_CFG_LABEL_SONDE_1_ENDROIT = builder.get_object('RELAIS_CFG_LABEL_SONDE_1_ENDROIT')
         self.RELAIS_CFG_LABEL_SONDE_2_ENDROIT = builder.get_object('RELAIS_CFG_LABEL_SONDE_2_ENDROIT')
         self.RELAIS_CFG_LABEL_SONDE_3_ENDROIT = builder.get_object('RELAIS_CFG_LABEL_SONDE_3_ENDROIT')
@@ -149,11 +150,6 @@ class Application:
         self.RELAIS_CFG_ENTRY_CUR_SONDE_2_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_CUR_SONDE_2_ENDROIT_TXT')
         self.RELAIS_CFG_ENTRY_CUR_SONDE_3_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_CUR_SONDE_3_ENDROIT_TXT')
         self.RELAIS_CFG_ENTRY_CUR_SONDE_4_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_CUR_SONDE_4_ENDROIT_TXT')
-
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ENDROIT_TXT')
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ENDROIT_TXT')
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ENDROIT_TXT')
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ENDROIT_TXT = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ENDROIT_TXT')
 
         self.RELAIS_CFG_LABEL_SONDE_1_CHOIX_TEMPERATURE = builder.get_object('RELAIS_CFG_LABEL_SONDE_1_CHOIX_TEMPERATURE')
         self.RELAIS_CFG_LABEL_SONDE_2_CHOIX_TEMPERATURE = builder.get_object('RELAIS_CFG_LABEL_SONDE_2_CHOIX_TEMPERATURE')
@@ -165,19 +161,14 @@ class Application:
         self.RELAIS_CFG_CHK_BUTTON_SONDE_3_T_SURFACE = builder.get_object('RELAIS_CFG_CHK_BUTTON_SONDE_3_T_SURFACE')
         self.RELAIS_CFG_CHK_BUTTON_SONDE_4_T_SURFACE = builder.get_object('RELAIS_CFG_CHK_BUTTON_SONDE_4_T_SURFACE')
 
-
         self.RELAIS_CFG_CHK_BUTTON_SONDE_1_T_PROFONDEUR = builder.get_object('RELAIS_CFG_CHK_BUTTON_SONDE_1_T_PROFONDEUR')
         self.RELAIS_CFG_CHK_BUTTON_SONDE_2_T_PROFONDEUR = builder.get_object('RELAIS_CFG_CHK_BUTTON_SONDE_2_T_PROFONDEUR')
         self.RELAIS_CFG_CHK_BUTTON_SONDE_3_T_PROFONDEUR = builder.get_object('RELAIS_CFG_CHK_BUTTON_SONDE_3_T_PROFONDEUR')
         self.RELAIS_CFG_CHK_BUTTON_SONDE_4_T_PROFONDEUR = builder.get_object('RELAIS_CFG_CHK_BUTTON_SONDE_4_T_PROFONDEUR')
 
-
-
         self.RELAIS_CFG_LABEL_FRAME_DELAIS_MIN = builder.get_object('RELAIS_CFG_LABEL_FRAME_DELAIS_MIN')
         self.RELAIS_CFG_LABEL_DELAIS_MIN = builder.get_object('RELAIS_CFG_LABEL_DELAIS_MIN')
         self.RELAIS_CFG_ENTRY_CUR_DELAIS_MIN = builder.get_object('RELAIS_CFG_ENTRY_CUR_DELAIS_MIN')
-        self.RELAIS_CFG_ENTRY_UPDATE_DELAIS_MIN = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_DELAIS_MIN')
-
 
         self.RELAIS_CFG_LABEL_FRAME_PC = builder.get_object('RELAIS_CFG_LABEL_FRAME_PC')
         self.RELAIS_CFG_LABEL_PC1 = builder.get_object('RELAIS_CFG_LABEL_PC1')
@@ -188,37 +179,22 @@ class Application:
         self.RELAIS_CFG_ENTRY_CUR_PC2 = builder.get_object('RELAIS_CFG_ENTRY_CUR_PC2')
         self.RELAIS_CFG_ENTRY_CUR_PC3 = builder.get_object('RELAIS_CFG_ENTRY_CUR_PC3')
         self.RELAIS_CFG_ENTRY_CUR_PC4 = builder.get_object('RELAIS_CFG_ENTRY_CUR_PC4')
-        self.RELAIS_CFG_ENTRY_UPDATE_PC1 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_PC1')
-        self.RELAIS_CFG_ENTRY_UPDATE_PC2 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_PC2')
-        self.RELAIS_CFG_ENTRY_UPDATE_PC3 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_PC3')
-        self.RELAIS_CFG_ENTRY_UPDATE_PC4 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_PC4')
-
 
         self.RELAIS_CFG_LABEL_FRAME_TV = builder.get_object('RELAIS_CFG_LABEL_FRAME_TV')
         self.RELAIS_CFG_LABEL_TV1 = builder.get_object('RELAIS_CFG_LABEL_TV1')
         self.RELAIS_CFG_LABEL_TV2 = builder.get_object('RELAIS_CFG_LABEL_TV2')
         self.RELAIS_CFG_LABEL_TV3 = builder.get_object('RELAIS_CFG_LABEL_TV3')
         self.RELAIS_CFG_LABEL_TV4 = builder.get_object('RELAIS_CFG_LABEL_TV4')
+
         self.RELAIS_CFG_ENTRY_CUR_TV1 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TV1')
         self.RELAIS_CFG_ENTRY_CUR_TV2 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TV2')
         self.RELAIS_CFG_ENTRY_CUR_TV3 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TV3')
         self.RELAIS_CFG_ENTRY_CUR_TV4 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TV4')
-        self.RELAIS_CFG_ENTRY_UPDATE_TV1 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TV1')
-        self.RELAIS_CFG_ENTRY_UPDATE_TV2 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TV2')
-        self.RELAIS_CFG_ENTRY_UPDATE_TV3 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TV3')
-        self.RELAIS_CFG_ENTRY_UPDATE_TV4 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TV4')
 
         self.RELAIS_CFG_ENTRY_CUR_TA1 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TA1')
         self.RELAIS_CFG_ENTRY_CUR_TA2 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TA2')
         self.RELAIS_CFG_ENTRY_CUR_TA3 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TA3')
         self.RELAIS_CFG_ENTRY_CUR_TA4 = builder.get_object('RELAIS_CFG_ENTRY_CUR_TA4')
-
-        self.RELAIS_CFG_ENTRY_UPDATE_TA1 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TA1')
-        self.RELAIS_CFG_ENTRY_UPDATE_TA2 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TA2')
-        self.RELAIS_CFG_ENTRY_UPDATE_TA3 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TA3')
-        self.RELAIS_CFG_ENTRY_UPDATE_TA4 = builder.get_object('RELAIS_CFG_ENTRY_UPDATE_TA4')
-
-
 
         self.RELAIS_CFG_BUTTON_UPDATE = builder.get_object('RELAIS_CFG_BUTTON_UPDATE')
 
@@ -439,13 +415,15 @@ class Application:
         self.Notebook.bind('<<NotebookTabChanged>>', self.notebook_node_tab_change)
 
         self.nfc = NodeFanConfig()
+        self.ssr_data = SsrData()
         self.gs_id = GroupeSondeID()
-        self.c_data = CompostFanData()
-        self.ndr = NodeData()
+        self.cnd = CompostNodeData()
+#        self.c_data = CompostFanData()
+#        self.ndr = NodeData()
 
-        self.all_node = AllNode()
+#        self.all_node = AllNode()
 
-        self.cfg_data = CompostFanConfig()
+#        self.cfg_data = CompostFanConfig()
         self.dataQueue = Queue.Queue()
         self.state = TCP_NOT_CONNECT
         self.last_state = self.state
@@ -461,98 +439,137 @@ class Application:
     # define the method callback
 
 
-    def on_button_server_connect_clicked(self):
-#        print('++on_button_server_connect_clicked()')
-        self.client_connect()
-        self.consumer()
-        self.get_groupe_sonde()
 
-#        self.get_relay_state()
-#        self.get_last_rssi()
-#        self.get_fan_relay_config()
-#        self.get_fan_compost_data()
-        self.TCP_CON_BUTTON_CONNECT.config(state='disabled')
-        self.TCP_CON_BUTTON_DISCONNECT.config(state='normal')
-#        print('--on_button_server_connect_clicked()')
+    # def get_fan_relay_config(self):
+    #     print('++--get_fan_relay_config()')
 
-    def get_fan_relay_config(self):
-        print('++--get_fan_relay_config()')
-
-    def get_relay_state(self):
-#        print('++get_relay_state()')
-        self.sock.send('GET_RELAY_STATE')
-        self.last_state = self.state
-        self.state = TCP_GET_RELAY_STATE
-        self.makethread()
-        self.consumer()
-        self.state = self.last_state
+#     def get_relay_state(self):
+# #        print('++get_relay_state()')
+#         self.sock.send('GET_RELAY_STATE')
+#         self.last_state = self.state
+#         self.state = TCP_GET_RELAY_STATE
+#         self.makethread()
+#         self.tcp_consumer()
+#         self.state = self.last_state
 #        print('--get_relay_state()')
 
-    def get_rrdgraph(self):
-        #        print('++get_relay_state()')
-        self.f_rrdgraph = open("rrdgraph.png", 'wb')
-        self.sock.send('GET_RRDGRAPH')
-        self.last_state = self.state
-        self.state = TCP_GET_RRDGRAPH
-        self.makethread()
-        self.consumer()
-        self.state = self.last_state
+    # def get_rrdgraph(self):
+    #     #        print('++get_relay_state()')
+    #     self.f_rrdgraph = open("rrdgraph.png", 'wb')
+    #     self.sock.send('GET_RRDGRAPH')
+    #     self.last_state = self.state
+    #     self.state = TCP_GET_RRDGRAPH
+    #     self.makethread()
+    #     self.tcp_consumer()
+    #     self.state = self.last_state
 
     #        print('--get_relay_state()')
 
-    def get_last_rssi(self):
-        print('++get_last_rssi()')
-        self.sock.send('GET_LAST_RSSI')
-        self.last_state = self.state
-        self.state = TCP_GET_LAST_RSSI
-        self.makethread()
-        self.consumer()
-        self.state = self.last_state
-        print('--get_last_rssi()')
+    # def get_last_rssi(self):
+    #     print('++get_last_rssi()')
+    #     self.sock.send('GET_LAST_RSSI')
+    #     self.last_state = self.state
+    #     self.state = TCP_GET_LAST_RSSI
+    #     self.makethread()
+    #     self.tcp_consumer()
+    #     self.state = self.last_state
+    #     print('--get_last_rssi()')
 
     def get_groupe_sonde(self):
         self.sock.send('GET_GROUPE_SONDE')
         self.state = TCP_GET_GROUPE_SONDE
         self.makethread()
-        self.consumer()
+        self.tcp_consumer()
 
     def get_groupe_sonde_cfg(self):
         self.sock.send('GET_GROUPE_SONDE_CFG_' + str(self.cur_groupe_sonde))
         self.state = TCP_GET_GROUPE_SONDE_CFG
         self.makethread()
-        self.consumer()
+        self.tcp_consumer()
 
-
-    def get_fan_compost_data(self):
-#        print('++get_fan_compost_data()')
-        self.sock.send('GET_NODE_0_DATA')
-        self.state = TCP_GET_NODE_0_DATA
+    def get_relais_data(self):
+        self.sock.send('GET_RELAIS_DATA_' + str(self.cur_groupe_sonde))
+        self.state = TCP_GET_RELAIS_DATA
         self.makethread()
-        self.consumer()
+        self.tcp_consumer()
+        print ("after_id : " + str(self.after_id))
+        self.after_id = root.after(15000, app.get_relais_data)
+        print ("after_id : " + str(self.after_id))
+
+    def get_sonde_1_data(self):
+        self.sock.send('GET_SONDE_1_DATA_' + str(self.cur_groupe_sonde))
+        self.state = TCP_GET_DATA_SONDE_1
+        self.makethread()
+        self.tcp_consumer()
+        print ("after_id : " + str(self.after_id))
+        self.after_id = root.after(15000, app.get_sonde_1_data)
+        print ("after_id : " + str(self.after_id))
+        print ("after_id : " + str(self.after_id))
+
+    def get_sonde_2_data(self):
+        self.sock.send('GET_SONDE_2_DATA_' + str(self.cur_groupe_sonde))
+        self.state = TCP_GET_DATA_SONDE_2
+        self.makethread()
+        self.tcp_consumer()
+        print ("after_id : " + str(self.after_id))
+        self.after_id = root.after(15000, app.get_sonde_2_data)
+        print ("after_id : " + str(self.after_id))
+
+    def get_sonde_3_data(self):
+        self.sock.send('GET_SONDE_3_DATA_' + str(self.cur_groupe_sonde))
+        self.state = TCP_GET_DATA_SONDE_3
+        self.makethread()
+        self.tcp_consumer()
+        print ("after_id : " + str(self.after_id))
+        self.after_id = root.after(15000, app.get_sonde_3_data)
+        print ("after_id : " + str(self.after_id))
+
+    def get_sonde_4_data(self):
+        self.sock.send('GET_SONDE_4_DATA_' + str(self.cur_groupe_sonde))
+        self.state = TCP_GET_DATA_SONDE_4
+        self.makethread()
+        self.tcp_consumer()
+        self.after_id = root.after(15000, app.get_sonde_4_data)
+
+    def print_test(self):
+        print("test")
+        root.after(5000, app.print_test)
+
+#     def get_fan_compost_data(self):
+# #        print('++get_fan_compost_data()')
+#         self.sock.send('GET_NODE_0_DATA')
+#         self.state = TCP_GET_NODE_0_DATA
+#         self.makethread()
+#         self.tcp_consumer()
 #        print('--get_fan_compost_data()')
 
-    def stop_fan_compost_data(self):
-        print('++stop_fan_compost_data()')
-        self.sock.send('STOP_DATA')
-        self.state = 0
-        print('--stop_fan_compost_data()')
+    # def stop_fan_compost_data(self):
+    #     print('++stop_fan_compost_data()')
+    #     self.sock.send('STOP_DATA')
+    #     self.state = 0
+    #     print('--stop_fan_compost_data()')
 
-    def get_fan_relay_config(self):
-        print('++get_fan_relay_config()')
-        self.sock.send('GET FAN_RELAY_CONFIG')
-        self.state = TCP_GET_RELAIS_CFG
-        self.makethread()
-        self.consumer()
-        print('--get_fan_relay_config()')
+    # def get_fan_relay_config(self):
+    #     print('++get_fan_relay_config()')
+    #     self.sock.send('GET FAN_RELAY_CONFIG')
+    #     self.state = TCP_GET_RELAIS_CFG
+    #     self.makethread()
+    #     self.tcp_consumer()
+    #     print('--get_fan_relay_config()')
+
+    def on_button_server_connect_clicked(self):
+        #        print('++on_button_server_connect_clicked()')
+        self.tcp_client_connect()
+        self.tcp_consumer()
+        self.get_groupe_sonde()
+        self.TCP_CON_BUTTON_CONNECT.config(state='disabled')
+        self.TCP_CON_BUTTON_DISCONNECT.config(state='normal')
 
     def on_button_server_disconnect_clicked(self):
         print('++button_server_disconnect_clicked()')
-        if self.after_id is not None:
-            self.mainwindow.after_cancel(self.after_id)
-            print('after_cancel')
-
+        self.cancel()
         self.sock.close()
-
+        self.cur_groupe_sonde = -1
         self.TCP_CON_ENTRY_CON_INFORMATION.delete(0, END)
         self.TCP_CON_ENTRY_CON_INFORMATION.insert(0, 'Disconnected')
 
@@ -562,6 +579,7 @@ class Application:
         self.GS_BUTTON_GS4.config(state='disabled')
 
         self.clear_relais_cfg()
+        self.clear_sonde_1()
 
         self.Notebook.select(str(self.GS_FRAME))
 
@@ -613,7 +631,6 @@ class Application:
             self.nfc.node_compost_cfg_0 = self.nfc.node_compost_cfg_0 ^ T_SURFACE_MASK
         print (str(self.nfc.node_compost_cfg_0))
 
-
     def on_chk_button_sonde_1_profondeur(self):
         print ('++on_chk_button_sonde_1_profondeur()')
         print("variable : " + self.relais_cfg_chk_sonde_1_profondeur.get())
@@ -623,7 +640,6 @@ class Application:
         else:
             self.nfc.node_compost_cfg_0 = self.nfc.node_compost_cfg_0 ^ T_PROFONDEUR_MASK
         print (str(self.nfc.node_compost_cfg_0))
-
 
     def on_chk_button_sonde_2_surface(self):
         print ('++on_chk_button_sonde_2_surface()')
@@ -635,7 +651,6 @@ class Application:
             self.nfc.node_compost_cfg_1 = self.nfc.node_compost_cfg_1 ^ T_SURFACE_MASK
         print (str(self.nfc.node_compost_cfg_1))
 
-
     def on_chk_button_sonde_2_profondeur(self):
         print ('++on_chk_button_sonde_2_profondeur()')
         print("variable : " + self.relais_cfg_chk_sonde_2_profondeur.get())
@@ -645,7 +660,6 @@ class Application:
         else:
             self.nfc.node_compost_cfg_1 = self.nfc.node_compost_cfg_1 ^ T_PROFONDEUR_MASK
         print (str(self.nfc.node_compost_cfg_1))
-
 
     def on_chk_button_sonde_3_surface(self):
         print ('++on_chk_button_sonde_3_surface()')
@@ -686,7 +700,6 @@ class Application:
         else:
             self.nfc.node_compost_cfg_3 = self.nfc.node_compost_cfg_3 ^ T_PROFONDEUR_MASK
         print (str(self.nfc.node_compost_cfg_3))
-
 
     def on_button_relais_update_clicked(self):
         print ('++button_relais_update_clicked()')
@@ -782,118 +795,100 @@ class Application:
 
         self.RELAIS_CFG_ENTRY_CUR_DELAIS_MIN.delete(0, END)
 
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ID.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ID.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ID.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ID.delete(0, END)
-
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_1_ENDROIT_TXT.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_2_ENDROIT_TXT.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_3_ENDROIT_TXT.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_SONDE_4_ENDROIT_TXT.delete(0, END)
-
-        self.RELAIS_CFG_ENTRY_UPDATE_DELAIS_MIN.delete(0, END)
-
         self.RELAIS_CFG_ENTRY_CUR_PC1.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_PC2.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_PC3.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_PC4.delete(0, END)
-
-        self.RELAIS_CFG_ENTRY_UPDATE_PC1.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_PC2.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_PC3.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_PC4.delete(0, END)
 
         self.RELAIS_CFG_ENTRY_CUR_TV1.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_TV2.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_TV3.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_TV4.delete(0, END)
 
-        self.RELAIS_CFG_ENTRY_UPDATE_TV1.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_TV2.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_TV3.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_TV4.delete(0, END)
-
         self.RELAIS_CFG_ENTRY_CUR_TA1.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_TA2.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_TA3.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_TA4.delete(0, END)
-
-        self.RELAIS_CFG_ENTRY_UPDATE_TA1.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_TA2.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_TA3.delete(0, END)
-        self.RELAIS_CFG_ENTRY_UPDATE_TA4.delete(0, END)
 
         self.RELAIS_CFG_ENTRY_CUR_SONDE_1_ENDROIT_TXT.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_SONDE_2_ENDROIT_TXT.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_SONDE_3_ENDROIT_TXT.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_SONDE_4_ENDROIT_TXT.delete(0, END)
 
+    def clear_sonde_1(self):
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_TX_POWER.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.config(state='normal')
+
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_TX_POWER.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.delete(0, END)
+
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_TX_POWER.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.config(state='readonly')
+
     def notebook_node_tab_change(self, event=None):
-#        print self.Notebook.select()
+        notebook_select = str(self.Notebook.select())
+        self.cancel()
+        if notebook_select == str(self.RELAIS_CFG_FRAME):
+            print ("RELAIS_CFG_FRAME")
+        elif notebook_select == str(self.RELAIS_DATA_FRAME):
+            print ("RELAIS_DATA_FRAME")
+            if self.cur_groupe_sonde != -1:
+                self.after_id = root.after(0, app.get_relais_data)
 
-#        print str(self.f_donnes_relais)
+        elif notebook_select == str(self.SONDE_1_FRAME):
+            print ("SONDE_1_FRAME")
+            if self.cur_groupe_sonde != -1:
+                self.after_id = root.after(0, app.get_sonde_1_data())
 
-
-#         if str(self.f_donnes_relais) == self.notebook_node.select():
-#             print ("Tab relais")
-#             self.rrd_graph.graph_id = RRD_GRAPH_RELAIS
-#
-#         elif str(self.f_donnes_gateway) == self.notebook_node.select():
-#             print('Tab Gateway')
-#             self.rrd_graph.graph_id = RRD_GRAPH_GATEWAY
-#
-#         elif str(self.f_donnees_sonde_compost_1) == self.notebook_node.select():
-#             print('Tab Compost 1')
-#             self.rrd_graph.graph_id = RRD_GRAPH_SONDE_1_COMPOST
-#
-#         elif str(self.f_donnees_sonde_compost_2) == self.notebook_node.select():
-#             print('Tab Compost 2')
-#             self.rrd_graph.graph_id = RRD_GRAPH_SONDE_2_COMPOST
-#
-#         elif str(self.f_donnees_sonde_compost_3) == self.notebook_node.select():
-#             print('Tab Compost 3')
-#             self.rrd_graph.graph_id = RRD_GRAPH_SONDE_3_COMPOST
-#
-#         elif str(self.f_donnees_sonde_compost_4) == self.notebook_node.select():
-#             print('Tab Compost 4')
-#             self.rrd_graph.graph_id = RRD_GRAPH_SONDE_4_COMPOST
+        elif notebook_select == str(self.SONDE_2_FRAME):
+            print ("SONDE_2_FRAME")
+            if self.cur_groupe_sonde != -1:
+                self.after_id = root.after(0, app.get_sonde_2_data())
+        elif notebook_select == str(self.SONDE_3_FRAME):
+            print ("SONDE_3_FRAME")
+            if self.cur_groupe_sonde != -1:
+                self.after_id = root.after(0, app.get_sonde_3_data())
+        elif notebook_select == str(self.SONDE_4_FRAME):
+            print ("SONDE_4_FRAME")
+            if self.cur_groupe_sonde != -1:
+                self.after_id = root.after(0, app.get_sonde_4_data())
 
         print ('++--notebook_tab_changed()')
 
-    def update_relay_state(self):
-#        print ('++update_relay_state()')
-        self.en_t_moyenne.delete(0, END)
-        self.en_t_moyenne.insert(0, str(self.cfg_data.relais_t_moyenne) + ' deg C')
-
-        self.en_relais_t_consigne.delete(0, END)
-        self.en_relais_t_consigne.insert(0, str(self.cfg_data.relais_consigne_temperature_fan) + ' deg C')
-
-        self.en_relais_t_offset_min.delete(0, END)
-        self.en_relais_t_offset_min.insert(0, str(self.cfg_data.relais_consigne_offset_min_temperature_fan) + ' deg C')
-
-        self.en_relais_t_offset_max.delete(0, END)
-        self.en_relais_t_offset_max.insert(0, str(self.cfg_data.relais_consigne_offset_max_temperature_fan) + ' deg C')
-
-        self.en_relais_current_state.delete(0, END)
-        relais_etat = self.cfg_data.relais_etat
-        if relais_etat == 0:
-            self.en_relais_current_state.insert(0, 'OFF')
-        elif relais_etat == 1:
-            self.en_relais_current_state.insert(0, 'ON')
-        elif relais_etat == 2:
-            self.en_relais_current_state.insert(0, 'AUTO')
-
-        self.en_relais_delais.delete(0, END)
-        self.en_relais_delais.insert(0, str(self.cfg_data.relais_delais))
-
-#        print ('--update_relay_state()')
-
-    def update_last_rssi_state(self):
-        print ('++--update_last_rssi_state()')
+    def cancel(self):
+        print("CANCEL :: " + str(self.after_id))
+        if self.after_id is not None:
+            print ("    cancel not None: " + str(self.after_id))
+            root.after_cancel(self.after_id)
+            self.after_id = None
+        else:
+            print ("    cancel is None: " + str(self.after_id))
 
     def update_relais_cfg(self):
-
         self.RELAIS_CFG_CHK_BUTTON_SONDE_1_T_SURFACE.config(state='normal')
         self.RELAIS_CFG_CHK_BUTTON_SONDE_1_T_PROFONDEUR.config(state='normal')
 
@@ -936,8 +931,6 @@ class Application:
             self.RELAIS_CFG_CHK_BUTTON_SONDE_4_T_PROFONDEUR.select()
         else:
             self.RELAIS_CFG_CHK_BUTTON_SONDE_4_T_PROFONDEUR.deselect()
-
-
 
         self.RELAIS_CFG_ENTRY_CUR_DELAIS_MIN.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_DELAIS_MIN.insert(0, str(self.nfc.delais_minute))
@@ -987,69 +980,220 @@ class Application:
         self.RELAIS_CFG_ENTRY_CUR_SONDE_4_ENDROIT_TXT.delete(0, END)
         self.RELAIS_CFG_ENTRY_CUR_SONDE_4_ENDROIT_TXT.insert(0, self.nfc.node_compost_txt_3)
 
-    def update_form(self):
-#        print('++update_form()')
+    def update_relais_data(self):
+        print ("update_relais_data()")
+        print ('TimeStamp : ' + str(self.ssr_data.timestamp))
+        print ('T_AVG : ' + str(self.ssr_data.t_avg))
+        self.RELAIS_DATA_ENTRY_CUR_DATE_HEURE.config(state='normal')
+        self.RELAIS_DATA_ENTRY_CUR_DATE_HEURE.delete(0, END)
 
-        self.en_node_1_t_surface.delete(0, END)
-        self.en_node_1_t_surface.insert(0, str(self.all_node.node_0.t_1))
-        self.en_node_1_t_profondeur.delete(0, END)
-        self.en_node_1_t_profondeur.insert(0, str(self.all_node.node_0.t_2))
-        self.en_node_1_t_air.delete(0, END)
-        self.en_node_1_t_air.insert(0, str(self.all_node.node_0.t_3))
-        self.en_node_1_h_air.delete(0, END)
-        self.en_node_1_h_air.insert(0, str(self.all_node.node_0.h_1))
-        self.en_node_1_batt_voltage.delete(0, END)
-        self.en_node_1_batt_voltage.insert(0, str(self.all_node.node_0.bat_voltage))
-        self.en_node_1_last_rssi.delete(0, END)
-        self.en_node_1_last_rssi.insert(0, str(self.all_node.node_0.last_rssi))
+        dt = datetime.fromtimestamp(self.ssr_data.timestamp)
 
-#        print('Node 1 temperature de surface: ' + str(self.all_node.node_0.t_1) + ' deg C')
-#        print('Node 1 temperature de profondeur: ' + str(self.all_node.node_0.t_2) + ' deg C')
+        self.RELAIS_DATA_ENTRY_CUR_DATE_HEURE.insert(0, dt.strftime("%Y-%m-%d %H:%M:%S"))
+        self.RELAIS_DATA_ENTRY_CUR_T_AVG.config(state='normal')
+        self.RELAIS_DATA_ENTRY_CUR_T_AVG.delete(0, END)
+        self.RELAIS_DATA_ENTRY_CUR_T_AVG.insert(0, str(self.ssr_data.t_avg))
+        self.RELAIS_DATA_ENTRY_CUR_DATE_HEURE.config(state='readonly')
+        self.RELAIS_DATA_ENTRY_CUR_T_AVG.config(state='readonly')
 
-        self.en_node_2_t_surface.delete(0, END)
-        self.en_node_2_t_surface.insert(0, str(self.all_node.node_1.t_1))
-        self.en_node_2_t_profondeur.delete(0, END)
-        self.en_node_2_t_profondeur.insert(0, str(self.all_node.node_1.t_2))
-        self.en_node_2_batt_voltage.delete(0, END)
-        self.en_node_2_batt_voltage.insert(0, str(self.all_node.node_1.bat_voltage))
-        self.en_node_2_last_rssi.delete(0, END)
-        self.en_node_2_last_rssi.insert(0, str(self.all_node.node_1.last_rssi))
+    def update_sonde_1(self):
+        print("update_sonde_1()")
+        print ('TimeStamp : ' + str(self.cnd.timestamp))
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_TX_POWER.config(state='normal')
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.config(state='normal')
 
-#        print('Node 2 temperature de surface: ' + str(self.all_node.node_1.t_1) + ' deg C')
-#        print('Node 2 temperature de profondeur: ' + str(self.all_node.node_1.t_2) + ' deg C')
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_TX_POWER.delete(0, END)
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.delete(0, END)
 
-        self.en_node_3_t_surface.delete(0, END)
-        self.en_node_3_t_surface.insert(0, str(self.all_node.node_2.t_1))
-        self.en_node_3_t_profondeur.delete(0, END)
-        self.en_node_3_t_profondeur.insert(0, str(self.all_node.node_2.t_2))
-        self.en_node_3_batt_voltage.delete(0, END)
-        self.en_node_3_batt_voltage.insert(0, str(self.all_node.node_2.bat_voltage))
-        self.en_node_3_last_rssi.delete(0, END)
-        self.en_node_3_last_rssi.insert(0, str(self.all_node.node_2.last_rssi))
+        dt = datetime.fromtimestamp(self.cnd.timestamp)
 
-#        print('Node 3 temperature de surface: ' + str(self.all_node.node_2.t_1) + ' deg C')
-#        print('Node 3 temperature de profondeur: ' + str(self.all_node.node_2.t_2) + ' deg C')
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.insert(0, dt.strftime("%Y-%m-%d %H:%M:%S"))
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.insert(0, str(self.cnd.ntc_1))
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.insert(0, str(self.cnd.ntc_2))
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.insert(0, str(self.cnd.conductivite))
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.insert(0, str(self.cnd.bme_temp))
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.insert(0, str(self.cnd.bme_humidity))
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.insert(0, str(self.cnd.bme_pression))
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.insert(0, str(self.cnd.batt_voltage))
+        self.SONDE_1_ENTRY_CUR_TX_POWER.insert(0, str(self.cnd.txpower))
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.insert(0, str(self.cnd.last_rssi))
 
-        self.en_node_4_t_surface.delete(0, END)
-        self.en_node_4_t_surface.insert(0, str(self.all_node.node_3.t_1))
-        self.en_node_4_t_profondeur.delete(0, END)
-        self.en_node_4_t_profondeur.insert(0, str(self.all_node.node_3.t_2))
-        self.en_node_4_batt_voltage.delete(0, END)
-        self.en_node_4_batt_voltage.insert(0, str(self.all_node.node_3.bat_voltage))
-        self.en_node_4_last_rssi.delete(0, END)
-        self.en_node_4_last_rssi.insert(0, str(self.all_node.node_3.last_rssi))
+        self.SONDE_1_ENTRY_CUR_DATE_HEURE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_T_SURFACE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_T_PROFONDEUR.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_CONDUCTIVITE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BME_TEMPERATURE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BME_HUMIDITY.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BME_PRESSION.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_TX_POWER.config(state='readonly')
+        self.SONDE_1_ENTRY_CUR_LAST_RSSI.config(state='readonly')
 
+    def update_sonde_2(self):
+        print("update_sonde_2")
+        print ('TimeStamp : ' + str(self.cnd.timestamp))
+        self.SONDE_2_ENTRY_CUR_DATE_HEURE.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_T_SURFACE.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_T_PROFONDEUR.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_CONDUCTIVITE.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_BME_TEMPERATURE.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_BME_HUMIDITY.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_BME_PRESSION.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_TX_POWER.config(state='normal')
+        self.SONDE_2_ENTRY_CUR_LAST_RSSI.config(state='normal')
 
+        self.SONDE_2_ENTRY_CUR_DATE_HEURE.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_T_SURFACE.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_T_PROFONDEUR.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_CONDUCTIVITE.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_BME_TEMPERATURE.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_BME_HUMIDITY.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_BME_PRESSION.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_BATTERIE_VOLTAGE.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_TX_POWER.delete(0, END)
+        self.SONDE_2_ENTRY_CUR_LAST_RSSI.delete(0, END)
 
+        dt = datetime.fromtimestamp(self.cnd.timestamp)
 
-    #        print('Node 4 temperature de surface: ' + str(self.all_node.node_3.t_1) + ' deg C')
-#        print('Node 4 temperature de profondeur: ' + str(self.all_node.node_3.t_2) + ' deg C')
+        self.SONDE_2_ENTRY_CUR_DATE_HEURE.insert(0, dt.strftime("%Y-%m-%d %H:%M:%S"))
+        self.SONDE_2_ENTRY_CUR_T_SURFACE.insert(0, str(self.cnd.ntc_1))
+        self.SONDE_2_ENTRY_CUR_T_PROFONDEUR.insert(0, str(self.cnd.ntc_2))
+        self.SONDE_2_ENTRY_CUR_CONDUCTIVITE.insert(0, str(self.cnd.conductivite))
+        self.SONDE_2_ENTRY_CUR_BME_TEMPERATURE.insert(0, str(self.cnd.bme_temp))
+        self.SONDE_2_ENTRY_CUR_BME_HUMIDITY.insert(0, str(self.cnd.bme_humidity))
+        self.SONDE_2_ENTRY_CUR_BME_PRESSION.insert(0, str(self.cnd.bme_pression))
+        self.SONDE_2_ENTRY_CUR_BATTERIE_VOLTAGE.insert(0, str(self.cnd.batt_voltage))
+        self.SONDE_2_ENTRY_CUR_TX_POWER.insert(0, str(self.cnd.txpower))
+        self.SONDE_2_ENTRY_CUR_LAST_RSSI.insert(0, str(self.cnd.last_rssi))
 
-#        print('Consigne : ' + str(self.cfg_data.relais_consigne_temperature_fan) + " deg C")
-#        print('--update_form()')
+        self.SONDE_2_ENTRY_CUR_DATE_HEURE.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_T_SURFACE.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_T_PROFONDEUR.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_CONDUCTIVITE.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_BME_TEMPERATURE.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_BME_HUMIDITY.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_BME_PRESSION.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_TX_POWER.config(state='readonly')
+        self.SONDE_2_ENTRY_CUR_LAST_RSSI.config(state='readonly')
 
-    def client_connect(self):
-        print('++client_connect()')
+    def update_sonde_3(self):
+        print("update_sonde_3")
+        print ('TimeStamp : ' + str(self.cnd.timestamp))
+        self.SONDE_3_ENTRY_CUR_DATE_HEURE.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_T_SURFACE.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_T_PROFONDEUR.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_CONDUCTIVITE.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_BME_TEMPERATURE.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_BME_HUMIDITY.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_BME_PRESSION.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_TX_POWER.config(state='normal')
+        self.SONDE_3_ENTRY_CUR_LAST_RSSI.config(state='normal')
+
+        self.SONDE_3_ENTRY_CUR_DATE_HEURE.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_T_SURFACE.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_T_PROFONDEUR.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_CONDUCTIVITE.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_BME_TEMPERATURE.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_BME_HUMIDITY.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_BME_PRESSION.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_BATTERIE_VOLTAGE.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_TX_POWER.delete(0, END)
+        self.SONDE_3_ENTRY_CUR_LAST_RSSI.delete(0, END)
+
+        dt = datetime.fromtimestamp(self.cnd.timestamp)
+
+        self.SONDE_3_ENTRY_CUR_DATE_HEURE.insert(0, dt.strftime("%Y-%m-%d %H:%M:%S"))
+        self.SONDE_3_ENTRY_CUR_T_SURFACE.insert(0, str(self.cnd.ntc_1))
+        self.SONDE_3_ENTRY_CUR_T_PROFONDEUR.insert(0, str(self.cnd.ntc_2))
+        self.SONDE_3_ENTRY_CUR_CONDUCTIVITE.insert(0, str(self.cnd.conductivite))
+        self.SONDE_3_ENTRY_CUR_BME_TEMPERATURE.insert(0, str(self.cnd.bme_temp))
+        self.SONDE_3_ENTRY_CUR_BME_HUMIDITY.insert(0, str(self.cnd.bme_humidity))
+        self.SONDE_3_ENTRY_CUR_BME_PRESSION.insert(0, str(self.cnd.bme_pression))
+        self.SONDE_3_ENTRY_CUR_BATTERIE_VOLTAGE.insert(0, str(self.cnd.batt_voltage))
+        self.SONDE_3_ENTRY_CUR_TX_POWER.insert(0, str(self.cnd.txpower))
+        self.SONDE_3_ENTRY_CUR_LAST_RSSI.insert(0, str(self.cnd.last_rssi))
+
+        self.SONDE_3_ENTRY_CUR_DATE_HEURE.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_T_SURFACE.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_T_PROFONDEUR.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_CONDUCTIVITE.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_BME_TEMPERATURE.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_BME_HUMIDITY.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_BME_PRESSION.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_TX_POWER.config(state='readonly')
+        self.SONDE_3_ENTRY_CUR_LAST_RSSI.config(state='readonly')
+
+    def update_sonde_4(self):
+        print("update_sonde_4")
+        print ('TimeStamp : ' + str(self.cnd.timestamp))
+        self.SONDE_4_ENTRY_CUR_DATE_HEURE.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_T_SURFACE.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_T_PROFONDEUR.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_CONDUCTIVITE.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_BME_TEMPERATURE.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_BME_HUMIDITY.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_BME_PRESSION.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_TX_POWER.config(state='normal')
+        self.SONDE_4_ENTRY_CUR_LAST_RSSI.config(state='normal')
+
+        self.SONDE_4_ENTRY_CUR_DATE_HEURE.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_T_SURFACE.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_T_PROFONDEUR.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_CONDUCTIVITE.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_BME_TEMPERATURE.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_BME_HUMIDITY.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_BME_PRESSION.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_BATTERIE_VOLTAGE.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_TX_POWER.delete(0, END)
+        self.SONDE_4_ENTRY_CUR_LAST_RSSI.delete(0, END)
+
+        dt = datetime.fromtimestamp(self.cnd.timestamp)
+
+        self.SONDE_4_ENTRY_CUR_DATE_HEURE.insert(0, dt.strftime("%Y-%m-%d %H:%M:%S"))
+        self.SONDE_4_ENTRY_CUR_T_SURFACE.insert(0, str(self.cnd.ntc_1))
+        self.SONDE_4_ENTRY_CUR_T_PROFONDEUR.insert(0, str(self.cnd.ntc_2))
+        self.SONDE_4_ENTRY_CUR_CONDUCTIVITE.insert(0, str(self.cnd.conductivite))
+        self.SONDE_4_ENTRY_CUR_BME_TEMPERATURE.insert(0, str(self.cnd.bme_temp))
+        self.SONDE_4_ENTRY_CUR_BME_HUMIDITY.insert(0, str(self.cnd.bme_humidity))
+        self.SONDE_4_ENTRY_CUR_BME_PRESSION.insert(0, str(self.cnd.bme_pression))
+        self.SONDE_4_ENTRY_CUR_BATTERIE_VOLTAGE.insert(0, str(self.cnd.batt_voltage))
+        self.SONDE_4_ENTRY_CUR_TX_POWER.insert(0, str(self.cnd.txpower))
+        self.SONDE_4_ENTRY_CUR_LAST_RSSI.insert(0, str(self.cnd.last_rssi))
+
+        self.SONDE_4_ENTRY_CUR_DATE_HEURE.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_T_SURFACE.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_T_PROFONDEUR.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_CONDUCTIVITE.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_BME_TEMPERATURE.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_BME_HUMIDITY.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_BME_PRESSION.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_BATTERIE_VOLTAGE.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_TX_POWER.config(state='readonly')
+        self.SONDE_4_ENTRY_CUR_LAST_RSSI.config(state='readonly')
+
+    def tcp_client_connect(self):
+        print('++tcp_client_connect()')
         self.state = TCP_CONNECT
         self.sock = socket(AF_INET, SOCK_STREAM)
         try:
@@ -1060,17 +1204,12 @@ class Application:
             print('Sending Ready...')
             self.sock.send('Ready')
             self.makethread()
-#        print('--client_connect()')
 
-    def client_close(self):
-        print('++client_close()')
+    def tcp_client_close(self):
+        print('++tcp_client_close()')
         self.sock.close()
-        print('++client_close()')
 
-    def producer(self):
-#        print('++producer()')
-#        print ('Producer current state = %d' % self.state)
-
+    def tcp_producer(self):
         if self.state == TCP_CONNECT:
             print('Producer state == TCP_CONNECT')
             reply = self.sock.recv(1024)
@@ -1085,6 +1224,31 @@ class Application:
 
         elif self.state == TCP_GET_GROUPE_SONDE:
             print('Producer state == TCP_GET_GROUPE_SONDE')
+            reply = self.sock.recv(1024)
+            self.sock.send("OK")
+            self.dataQueue.put(reply)
+        elif self.state == TCP_GET_RELAIS_DATA:
+            print('Producer state == TCP_GET_RELAIS_DATA')
+            reply = self.sock.recv(1024)
+            self.sock.send("OK")
+            self.dataQueue.put(reply)
+        elif self.state == TCP_GET_DATA_SONDE_1:
+            print('Producer state == TCP_GET_DATA_SONDE_1')
+            reply = self.sock.recv(1024)
+            self.sock.send("OK")
+            self.dataQueue.put(reply)
+        elif self.state == TCP_GET_DATA_SONDE_2:
+            print('Producer state == TCP_GET_DATA_SONDE_2')
+            reply = self.sock.recv(1024)
+            self.sock.send("OK")
+            self.dataQueue.put(reply)
+        elif self.state == TCP_GET_DATA_SONDE_3:
+            print('Producer state == TCP_GET_DATA_SONDE_3')
+            reply = self.sock.recv(1024)
+            self.sock.send("OK")
+            self.dataQueue.put(reply)
+        elif self.state == TCP_GET_DATA_SONDE_4:
+            print('Producer state == TCP_GET_DATA_SONDE_4')
             reply = self.sock.recv(1024)
             self.sock.send("OK")
             self.dataQueue.put(reply)
@@ -1206,7 +1370,7 @@ class Application:
 
 #        print('--producer()')
 
-    def consumer(self):
+    def tcp_consumer(self):
 #        print('++consumer()')
         try:
             data = self.dataQueue.get(block=False)
@@ -1223,7 +1387,6 @@ class Application:
 
             elif self.state == TCP_GET_GROUPE_SONDE:
                 print('Consumer state == TCP_GET_GROUPE_SONDE')
-                print(data)
                 self.gs_id = pickle.loads(data)
 
                 if self.gs_id.gp1_active == 1:
@@ -1236,10 +1399,33 @@ class Application:
                     self.GS_BUTTON_GS4.config(state='normal')
             elif self.state == TCP_GET_GROUPE_SONDE_CFG:
                 print('Consumer state == TCP_GET_GROUPE_SONDE_CFG')
-                print (data)
                 self.nfc = pickle.loads(data)
                 self.update_relais_cfg()
-
+            elif self.state == TCP_GET_RELAIS_DATA:
+                print('Consumer state == TCP_GET_RELAIS_DATA')
+                self.ssr_data = pickle.loads(data)
+                self.update_relais_data()
+                self.state = TCP_CONNECTED
+            elif self.state == TCP_GET_DATA_SONDE_1:
+                print('Consumer state == TCP_GET_DATA_SONDE_1')
+                self.cnd = pickle.loads(data)
+                self.update_sonde_1()
+                self.state = TCP_CONNECTED
+            elif self.state == TCP_GET_DATA_SONDE_2:
+                print('Consumer state == TCP_GET_DATA_SONDE_2')
+                self.cnd = pickle.loads(data)
+                self.update_sonde_2()
+                self.state = TCP_CONNECTED
+            elif self.state == TCP_GET_DATA_SONDE_3:
+                print('Consumer state == TCP_GET_DATA_SONDE_3')
+                self.cnd = pickle.loads(data)
+                self.update_sonde_3()
+                self.state = TCP_CONNECTED
+            elif self.state == TCP_GET_DATA_SONDE_4:
+                print('Consumer state == TCP_GET_DATA_SONDE_4')
+                self.cnd = pickle.loads(data)
+                self.update_sonde_4()
+                self.state = TCP_CONNECTED
             elif self.state == TCP_GET_NODE_0_DATA:
                 print('Consumer state == TCP_GET_NODE_0_DATA')
                 self.all_node.node_0 = pickle.loads(data)
@@ -1247,7 +1433,7 @@ class Application:
 #                print(self.all_node.node_0.node_id)
                 self.state = TCP_GET_NODE_1_DATA
                 self.makethread()
-                self.consumer()
+                self.tcp_consumer()
 
             elif self.state == TCP_GET_NODE_1_DATA:
                 print('Consumer state == TCP_GET_NODE_1_DATA')
@@ -1256,7 +1442,7 @@ class Application:
 #                print(self.all_node.node_1.node_id)
                 self.state = TCP_GET_NODE_2_DATA
                 self.makethread()
-                self.consumer()
+                self.tcp_consumer()
 
             elif self.state == TCP_GET_NODE_2_DATA:
                 print('Consumer state == TCP_GET_NODE_2_DATA')
@@ -1265,7 +1451,7 @@ class Application:
 #                print(self.all_node.node_2.node_id)
                 self.state = TCP_GET_NODE_3_DATA
                 self.makethread()
-                self.consumer()
+                self.tcp_consumer()
 
             elif self.state == TCP_GET_NODE_3_DATA:
                 print('Consumer state == TCP_GET_NODE_3_DATA')
@@ -1298,12 +1484,9 @@ class Application:
  #               self.state = TCP_CONNECTED
 
 
-#            print('--consumer()')
-
-
     def makethread(self):
 #        print('++makethread()')
-        threading.Thread(target=self.producer())
+        threading.Thread(target=self.tcp_producer())
 #        print('--makethread()')
 
 if __name__ == '__main__':
