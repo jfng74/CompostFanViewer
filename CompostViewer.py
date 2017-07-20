@@ -61,6 +61,13 @@ RRD_GRAPH_SONDE_4_COMPOST = 6
 T_SURFACE_MASK = 0x01
 T_PROFONDEUR_MASK = 0x02
 
+# Current Frame
+F_RELAIS_DATA = 1
+F_SONDE_1 = 2
+F_SONDE_2 = 3
+F_SONDE_3 = 4
+F_SONDE_4 = 5
+
 class Application:
     def __init__(self, master):
         self.master = master
@@ -343,90 +350,16 @@ class Application:
 
         self.RELAIS_CFG_BUTTON_UPDATE.config(state='disabled')
 
-
-
-
-        # # getting tab_relais widget
-        # self.bt_relais = builder.get_object('bt_relais_update')
-        # self.en_t_moyenne = builder.get_object('en_t_moyenne')
-        # self.en_relais_t_consigne = builder.get_object('en_relais_t_consigne')
-        # self.en_relais_update_t_consigne = builder.get_object('en_update_consigne')
-        # self.en_relais_t_offset_min = builder.get_object('en_relais_t_offset_min')
-        # self.en_relais_t_offset_max = builder.get_object('en_relais_t_offset_max')
-        # self.en_relais_current_state = builder.get_object('en_relais_current_state')
-        # self.en_relais_delais = builder.get_object('en_delay_between_read')
-        # self.en_relais_update_delais = builder.get_object('en_update_delais')
-        # self.l_rrd_graph = builder.get_object('l_rrd_graph')
-        # # getting tab_gateway widget
-        #
-        # # getting notebook
-        # self.notebook_node = builder.get_object('notebook_node')
-        #
-        # # getting tabs
-        # self.tab_relais = builder.get_object('tab_relais')
-        # self.tab_gateway = builder.get_object('tab_gateway')
-        # self.tab_sonde_compost_1 = builder.get_object('tab_sonde_compost_1')
-        # self.tab_sonde_compost_2 = builder.get_object('tab_sonde_compost_2')
-        # self.tab_sonde_compost_3 = builder.get_object('tab_sonde_compost_3')
-        # self.tab_sonde_compost_4 = builder.get_object('tab_sonde_compost_4')
-        #
-        # self.f_donnes_relais = builder.get_object('f_donnes_relais')
-        # self.f_donnes_gateway = builder.get_object('f_donnes_gateway')
-        # self.f_donnees_sonde_compost_1 = builder.get_object('f_donnees_sonde_compost_1')
-        # self.f_donnees_sonde_compost_2 = builder.get_object('f_donnees_sonde_compost_2')
-        # self.f_donnees_sonde_compost_3 = builder.get_object('f_donnees_sonde_compost_3')
-        # self.f_donnees_sonde_compost_4 = builder.get_object('f_donnees_sonde_compost_4')
-        #
-        # # getting tab_sonde_compost_1 widget
-        # self.en_node_1_t_surface = builder.get_object('en_node_1_t_surface')
-        # self.en_node_1_t_profondeur = builder.get_object('en_node_1_t_profondeur')
-        # self.en_node_1_t_air = builder.get_object('en_node_1_t_air')
-        # self.en_node_1_h_air = builder.get_object('en_node_1_h_air')
-        # self.en_node_1_batt_voltage = builder.get_object('en_node_1_batt_voltage')
-        # self.en_node_1_last_rssi = builder.get_object('en_node_1_last_rssi')
-        #
-        # # getting tab_sonde_compost_2 widget
-        # self.en_node_2_t_surface = builder.get_object('en_node_2_t_surface')
-        # self.en_node_2_t_profondeur = builder.get_object('en_node_2_t_profondeur')
-        # self.en_node_2_batt_voltage = builder.get_object('en_node_2_batt_voltage')
-        # self.en_node_2_last_rssi = builder.get_object('en_node_2_last_rssi')
-        #
-        # # getting tab_sonde_compost_3 widget
-        # self.en_node_3_t_surface = builder.get_object('en_node_3_t_surface')
-        # self.en_node_3_t_profondeur = builder.get_object('en_node_3_t_profondeur')
-        # self.en_node_3_batt_voltage = builder.get_object('en_node_3_batt_voltage')
-        # self.en_node_3_last_rssi = builder.get_object('en_node_3_last_rssi')
-        #
-        # # getting tab_sonde_compost_4 widget
-        # self.en_node_4_t_surface = builder.get_object('en_node_4_t_surface')
-        # self.en_node_4_t_profondeur = builder.get_object('en_node_4_t_profondeur')
-        # self.en_node_4_batt_voltage = builder.get_object('en_node_4_batt_voltage')
-        # self.en_node_4_last_rssi = builder.get_object('en_node_4_last_rssi')
-        #
-        #
-        # self.notebook_node = builder.get_object('notebook_node')
-        # self.notebook_node.bind('<<NotebookTabChanged>>', self.notebook_node_tab_change)
-        #
-        # self.en_connection_information = builder.get_object('en_connection_information')
-        # self.bt_relais_update = builder.get_object('bt_relais_update')
-        # self.bt_server_connect = builder.get_object('bt_server_connect')
-        # self.bt_server_disconnect = builder.get_object('bt_server_disconnect')
-
         self.Notebook.bind('<<NotebookTabChanged>>', self.notebook_node_tab_change)
 
         self.nfc = NodeFanConfig()
         self.ssr_data = SsrData()
         self.gs_id = GroupeSondeID()
         self.cnd = CompostNodeData()
-#        self.c_data = CompostFanData()
-#        self.ndr = NodeData()
-
-#        self.all_node = AllNode()
-
-#        self.cfg_data = CompostFanConfig()
         self.dataQueue = Queue.Queue()
         self.state = TCP_NOT_CONNECT
         self.last_state = self.state
+        self.cur_frame = 0
         self.after_id = None
         self.sock = 0
 
@@ -492,44 +425,30 @@ class Application:
         self.state = TCP_GET_RELAIS_DATA
         self.makethread()
         self.tcp_consumer()
-        print ("after_id : " + str(self.after_id))
-        self.after_id = root.after(15000, app.get_relais_data)
-        print ("after_id : " + str(self.after_id))
 
     def get_sonde_1_data(self):
         self.sock.send('GET_SONDE_1_DATA_' + str(self.cur_groupe_sonde))
         self.state = TCP_GET_DATA_SONDE_1
         self.makethread()
         self.tcp_consumer()
-        print ("after_id : " + str(self.after_id))
-        self.after_id = root.after(15000, app.get_sonde_1_data)
-        print ("after_id : " + str(self.after_id))
-        print ("after_id : " + str(self.after_id))
 
     def get_sonde_2_data(self):
         self.sock.send('GET_SONDE_2_DATA_' + str(self.cur_groupe_sonde))
         self.state = TCP_GET_DATA_SONDE_2
         self.makethread()
         self.tcp_consumer()
-        print ("after_id : " + str(self.after_id))
-        self.after_id = root.after(15000, app.get_sonde_2_data)
-        print ("after_id : " + str(self.after_id))
 
     def get_sonde_3_data(self):
         self.sock.send('GET_SONDE_3_DATA_' + str(self.cur_groupe_sonde))
         self.state = TCP_GET_DATA_SONDE_3
         self.makethread()
         self.tcp_consumer()
-        print ("after_id : " + str(self.after_id))
-        self.after_id = root.after(15000, app.get_sonde_3_data)
-        print ("after_id : " + str(self.after_id))
 
     def get_sonde_4_data(self):
         self.sock.send('GET_SONDE_4_DATA_' + str(self.cur_groupe_sonde))
         self.state = TCP_GET_DATA_SONDE_4
         self.makethread()
         self.tcp_consumer()
-        self.after_id = root.after(15000, app.get_sonde_4_data)
 
     def print_test(self):
         print("test")
@@ -582,7 +501,6 @@ class Application:
         self.clear_sonde_1()
 
         self.Notebook.select(str(self.GS_FRAME))
-
         self.TCP_CON_BUTTON_CONNECT.config(state='normal')
         self.TCP_CON_BUTTON_DISCONNECT.config(state='disabled')
         print('--button_server_disconnect_clicked()')
@@ -851,31 +769,42 @@ class Application:
 
     def notebook_node_tab_change(self, event=None):
         notebook_select = str(self.Notebook.select())
-        self.cancel()
+
         if notebook_select == str(self.RELAIS_CFG_FRAME):
             print ("RELAIS_CFG_FRAME")
+            self.cur_frame = 0
+
         elif notebook_select == str(self.RELAIS_DATA_FRAME):
             print ("RELAIS_DATA_FRAME")
             if self.cur_groupe_sonde != -1:
-                self.after_id = root.after(0, app.get_relais_data)
+                self.get_relais_data()
+                self.cur_frame = F_RELAIS_DATA
 
         elif notebook_select == str(self.SONDE_1_FRAME):
             print ("SONDE_1_FRAME")
             if self.cur_groupe_sonde != -1:
-                self.after_id = root.after(0, app.get_sonde_1_data())
+                self.get_sonde_1_data()
+                self.cur_frame = F_SONDE_1
 
         elif notebook_select == str(self.SONDE_2_FRAME):
             print ("SONDE_2_FRAME")
             if self.cur_groupe_sonde != -1:
-                self.after_id = root.after(0, app.get_sonde_2_data())
+                self.get_sonde_2_data()
+                self.cur_frame = F_SONDE_2
+
         elif notebook_select == str(self.SONDE_3_FRAME):
             print ("SONDE_3_FRAME")
             if self.cur_groupe_sonde != -1:
-                self.after_id = root.after(0, app.get_sonde_3_data())
+                self.get_sonde_3_data()
+                self.cur_frame = F_SONDE_3
+
         elif notebook_select == str(self.SONDE_4_FRAME):
             print ("SONDE_4_FRAME")
             if self.cur_groupe_sonde != -1:
-                self.after_id = root.after(0, app.get_sonde_4_data())
+                self.get_sonde_4_data()
+                self.cur_frame = F_SONDE_4
+        else:
+            self.cur_frame = 0
 
         print ('++--notebook_tab_changed()')
 
@@ -887,6 +816,22 @@ class Application:
             self.after_id = None
         else:
             print ("    cancel is None: " + str(self.after_id))
+
+    def update_after(self):
+        print ("update_after")
+        if self.cur_frame == F_RELAIS_DATA:
+            self.get_relais_data()
+        elif self.cur_frame == F_SONDE_1:
+            self.get_sonde_1_data()
+        elif self.cur_frame == F_SONDE_2:
+            self.get_sonde_2_data()
+        elif self.cur_frame == F_SONDE_3:
+            self.get_sonde_3_data()
+        elif self.cur_frame == F_SONDE_4:
+            self.get_sonde_4_data()
+        else:
+            print("update_after : not updating data")
+        self.after_id = root.after(15000, self.update_after)
 
     def update_relais_cfg(self):
         self.RELAIS_CFG_CHK_BUTTON_SONDE_1_T_SURFACE.config(state='normal')
@@ -1204,6 +1149,7 @@ class Application:
             print('Sending Ready...')
             self.sock.send('Ready')
             self.makethread()
+            self.after_id = root.after(15000, self.update_after)
 
     def tcp_client_close(self):
         print('++tcp_client_close()')
@@ -1492,5 +1438,4 @@ class Application:
 if __name__ == '__main__':
     root = Tk()
     app = Application(root)
-
     root.mainloop()
